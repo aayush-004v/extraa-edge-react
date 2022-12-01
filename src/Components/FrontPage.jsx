@@ -129,7 +129,7 @@ const FrontPage = () => {
                             </div>
                             <div className="col-4">
                               <i
-                                className={flag ? "fa fa-pencil" : "fa fa-pencil editt text-primary"}
+                                className="fa fa-pencil editt text-primary"
                                 data-bs-toggle="modal"
                                 data-bs-target="#staticBackdrop"
                                 onClick={() => {
@@ -139,7 +139,7 @@ const FrontPage = () => {
                             </div>
                             <div className="col-4">
                               <i
-                                className={flag ? "fa fa-trash" : "fa fa-trash deletee text-danger"}
+                                 className="fa fa-trash deletee text-danger"
                                 onClick={() => {
                                   deleteItem(element.id);
                                 }}
