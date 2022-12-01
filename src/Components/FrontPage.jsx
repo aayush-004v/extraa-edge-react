@@ -1,0 +1,167 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
+import axios from "axios";
+import React from "react";
+import { useState, useEffect } from "react";
+import "../App.css";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import FormModal from "./FormModal";
+
+const FrontPage = () => {
+  const [ApiData, setApiData] = useState([]);
+  // const [copiedData, setCopiedData] = useState(null);
+  const [flag, setFlag] = useState(false);
+  const [toggle, setToggle] = useState(false);
+  const [color, setColor] = useState("black");
+  const [updateData, setUpdateData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    website: "",
+  });
+  const getData = async () => {
+    let resData = await axios("https://jsonplaceholder.typicode.com/users");
+    // setCopiedData(...resData.data);
+    setApiData(resData.data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  function deleteItem(id) {
+    const newArray = ApiData.filter((item) => item.id !== id);
+    alert("Do you want to delete the data...?");
+    setApiData(newArray);
+  }
+  const editDetails = (element) => {
+    setFlag(false);
+    setUpdateData({
+      name: element.name,
+      email: element.email,
+      phone: element.phone,
+      website: element.website,
+    });
+  };
+
+  const changeHandle = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+    setUpdateData({ ...updateData, [name]: value });
+  };
+
+  // const updateNow = () => {
+  //   setCopiedData([...copiedData, { ...updateData }]);
+    // console.log(resData);
+  // };
+
+  const handleColor = () => {
+    // setToggle(!toggle);
+    // setColor("red");
+    if(toggle) {
+      setColor("red");
+      setToggle(false);
+    }
+    else {
+      setColor("black");
+      setToggle(true);
+    }
+  }
+
+  return (
+    <>
+      <div className="container-fluid mt-2">
+        <div className="row">
+          {ApiData.map((element) => {
+                return (
+                  <>
+                    <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 mt-3 mb-2">
+                      <div className="card mx-2">
+                        <img
+                          className="card-img-top"
+                          src={`https://avatars.dicebear.com/v2/avataaars/${element.username}.svg?options[mood][]=happy`}
+                          alt="Card image cap"
+                          width="200px"
+                          height="200px"
+                        />
+                        <div className="card-body">
+                          <h5 className="card-title ms-2">{element.name}</h5>
+                          <ul className="list-unstyled">
+                            <li>
+                              <span>
+                                <i
+                                  className="fa fa-envelope"
+                                  aria-hidden="true"
+                                ></i>
+                              </span>{" "}
+                              {element.email}
+                            </li>
+                            <li>
+                              <span>
+                                <i
+                                  className="fa fa-phone"
+                                  aria-hidden="true"
+                                ></i>
+                              </span>
+                              {element.phone}
+                            </li>
+                            <li>
+                              <span>
+                                <i
+                                  className="fa fa-globe"
+                                  aria-hidden="true"
+                                ></i>
+                              </span>
+                              {element.website}
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="card-footer text-center">
+                          <div className="footer-icon">
+                            <div
+                              className="col-4"
+                            >
+                              <span
+                                id="boot-icon dil"
+                                className="bi bi-heart-fill dil"
+                                style={{color: color}}
+                                onClick={handleColor}
+                              ></span>
+                            </div>
+                            <div className="col-4">
+                              <i
+                                className={flag ? "fa fa-pencil" : "fa fa-pencil editt text-primary"}
+                                data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop"
+                                onClick={() => {
+                                  editDetails(element);
+                                }}
+                              ></i>
+                            </div>
+                            <div className="col-4">
+                              <i
+                                className={flag ? "fa fa-trash" : "fa fa-trash deletee text-danger"}
+                                onClick={() => {
+                                  deleteItem(element.id);
+                                }}
+                              ></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                );
+              })
+            }
+        </div>
+      </div>
+      <FormModal
+        updateData={updateData}
+        changeHandle={changeHandle}
+        // updateNow={updateNow}
+      />
+    </>
+  );
+};
+
+export default FrontPage;

@@ -1,0 +1,29 @@
+.footer-icon{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.card{
+  border: 1px solid groove;
+}
+
+.card-img-top{
+  background-color: #f7f7f7;
+}
+
+.dil:hover{
+  cursor: pointer;
+}
+.deletee  {
+  cursor: pointer;
+}
+.editt{
+  cursor: pointer;
+}
+ul li span{
+  padding:10px 10px ;
+}
+ul li{
+  margin-bottom: 5px;
+}
