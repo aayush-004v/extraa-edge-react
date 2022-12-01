@@ -5,7 +5,8 @@
 }
 
 .card{
-  border: 1px solid groove;
+  border: 1px;
+  border-style: groove;
 }
 
 .card-img-top{
