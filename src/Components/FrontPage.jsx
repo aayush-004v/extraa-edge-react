@@ -3,8 +3,7 @@ import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
 import "../App.css";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import FormModal from "./FormModal";
+import ModalValidation from "./ModalValidation";
 
 const FrontPage = () => {
   const [ApiData, setApiData] = useState([]);
@@ -117,13 +116,11 @@ const FrontPage = () => {
                         </div>
                         <div className="card-footer text-center">
                           <div className="footer-icon">
-                            <div
-                              className="col-4"
-                            >
+                            <div className="col-4">
                               <span
                                 id="boot-icon dil"
                                 className="bi bi-heart-fill dil"
-                                style={{color: color}}
+                                style={{ color: color }}
                                 onClick={handleColor}
                               ></span>
                             </div>
@@ -139,7 +136,7 @@ const FrontPage = () => {
                             </div>
                             <div className="col-4">
                               <i
-                                 className="fa fa-trash deletee text-danger"
+                                className="fa fa-trash deletee text-danger"
                                 onClick={() => {
                                   deleteItem(element.id);
                                 }}
@@ -155,11 +152,8 @@ const FrontPage = () => {
             }
         </div>
       </div>
-      <FormModal
-        updateData={updateData}
-        changeHandle={changeHandle}
-        // updateNow={updateNow}
-      />
+      <ModalValidation updateData={updateData}
+      changeHandle={changeHandle}/>
     </>
   );
 };
