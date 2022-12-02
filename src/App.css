@@ -5,8 +5,8 @@
 }
 
 .card{
-  border: 1px;
-  border-style: groove;
+ border: 1px;
+ border-style: groove;
 }
 
 .card-img-top{
@@ -27,4 +27,11 @@ ul li span{
 }
 ul li{
   margin-bottom: 5px;
+}
+
+.loader{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
