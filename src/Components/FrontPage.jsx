@@ -7,33 +7,32 @@ import ModalValidation from "./ModalValidation";
 
 const FrontPage = () => {
   const [ApiData, setApiData] = useState([]);
-  // const [copiedData, setCopiedData] = useState(null);
-  const [flag, setFlag] = useState(false);
   const [toggle, setToggle] = useState(false);
   const [color, setColor] = useState("black");
+
   const [updateData, setUpdateData] = useState({
     name: "",
     email: "",
     phone: "",
     website: "",
   });
+
   const getData = async () => {
     let resData = await axios("https://jsonplaceholder.typicode.com/users");
-    // setCopiedData(...resData.data);
     setApiData(resData.data);
   };
 
   useEffect(() => {
     getData();
-  }, []);
+  },[]);
+  
 
   function deleteItem(id) {
     const newArray = ApiData.filter((item) => item.id !== id);
-    alert("Do you want to delete the data...?");
     setApiData(newArray);
   }
+
   const editDetails = (element) => {
-    setFlag(false);
     setUpdateData({
       name: element.name,
       email: element.email,
@@ -48,14 +47,7 @@ const FrontPage = () => {
     setUpdateData({ ...updateData, [name]: value });
   };
 
-  // const updateNow = () => {
-  //   setCopiedData([...copiedData, { ...updateData }]);
-    // console.log(resData);
-  // };
-
   const handleColor = () => {
-    // setToggle(!toggle);
-    // setColor("red");
     if(toggle) {
       setColor("red");
       setToggle(false);
@@ -70,10 +62,9 @@ const FrontPage = () => {
     <>
       <div className="container-fluid mt-2">
         <div className="row">
-          {ApiData.map((element) => {
+          {ApiData.map((element,id) => {
                 return (
-                  <>
-                    <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 mt-3 mb-2">
+                    <div key={id} className="col-xl-3 col-lg-3 col-md-3 col-sm-12 mt-3 mb-2">
                       <div className="card mx-2">
                         <img
                           className="card-img-top"
@@ -91,7 +82,7 @@ const FrontPage = () => {
                                   className="fa fa-envelope"
                                   aria-hidden="true"
                                 ></i>
-                              </span>{" "}
+                              </span>
                               {element.email}
                             </li>
                             <li>
@@ -146,7 +137,6 @@ const FrontPage = () => {
                         </div>
                       </div>
                     </div>
-                  </>
                 );
               })
             }
